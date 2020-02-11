@@ -1,0 +1,11 @@
+E:\BotsFolder\TestBot\obj\Debug\netcoreapp2.1\TestBot.csprojAssemblyReference.cache
+E:\BotsFolder\TestBot\obj\Debug\netcoreapp2.1\TestBot.csproj.CoreCompileInputs.cache
+E:\BotsFolder\TestBot\obj\Debug\netcoreapp2.1\TestBot.AssemblyInfoInputs.cache
+E:\BotsFolder\TestBot\obj\Debug\netcoreapp2.1\TestBot.AssemblyInfo.cs
+E:\BotsFolder\TestBot\bin\Debug\netcoreapp2.1\TestBot.deps.json
+E:\BotsFolder\TestBot\bin\Debug\netcoreapp2.1\TestBot.runtimeconfig.json
+E:\BotsFolder\TestBot\bin\Debug\netcoreapp2.1\TestBot.runtimeconfig.dev.json
+E:\BotsFolder\TestBot\bin\Debug\netcoreapp2.1\TestBot.dll
+E:\BotsFolder\TestBot\bin\Debug\netcoreapp2.1\TestBot.pdb
+E:\BotsFolder\TestBot\obj\Debug\netcoreapp2.1\TestBot.dll
+E:\BotsFolder\TestBot\obj\Debug\netcoreapp2.1\TestBot.pdb
