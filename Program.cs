@@ -45,6 +45,8 @@ namespace TestBot
             {"stickers",new HashSet<string>(){"ктоэтистикерыделает","ктостикерыделает","стикерыделает",
                                               "хочутожестикер","стикерпак","заебалэтотботсостикерами"}}, 
             {"coder",new HashSet<string>(){"нуженкодер","подскажитекодера","кодеркрипт","крипткодер"}},
+            {"скуп_Admin",new HashSet<string>(){}},
+            {"скуп_YZY",new HashSet<string>(){}}
             
         };
 
@@ -238,6 +240,19 @@ namespace TestBot
                             sticker:"CAACAgIAAxkBAAMRXkG5XJy4PQunbBKZ2DGBYt_dFWIAAlEAAybJahGK2oE_xa17AxgE",
                             replyToMessageId: e.Message.MessageId
                     );
+                    break;
+                    case "скуп_Admin":
+                        await botClient.SendStickerAsync(
+                            chatId: e.Message.Chat,
+                            sticker:"CAACAgIAAxkBAAMLXkRulJi9BvzPiJo4odK9tFiJO4oAAm8AAybJahHpuaSP5o2ifxgE",
+                            replyToMessageId: e.Message.MessageId
+                        );
+                    break;
+                    case"скуп_YZY":
+                        await botClient.SendStickerAsync(
+                            chatId: e.Message.Chat,
+                            sticker:"CAACAgIAAxkBAAMNXkRumWvd8ZJN67EoLztrabXXTwgAAm4AAybJahF44a-DspQZgRgE",
+                            replyToMessageId: e.Message.MessageId);
                     break;
                 
             }
