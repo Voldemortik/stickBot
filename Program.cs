@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using Telegram.Bot;
 using Telegram.Bot.Args;
@@ -47,11 +48,11 @@ namespace TestBot
             
         };
 
-        static List<long> chatIds;
+        static Dictionary<long,Dictionary<string,DateTime>>  keyWaitDict;
         static void Main(string[] args)
         {
             botClient = new TelegramBotClient("1043638953:AAGxLGVc3GuDlBYvMYZn_gscWUgWJeqdC4Y");
-            chatIds = new List<long>();
+            keyWaitDict = new Dictionary<long, Dictionary<string, DateTime>>();
             Console.WriteLine($"Bot is working");
             botClient.OnMessage += Bot_OnMessage;
             botClient.StartReceiving();
@@ -71,11 +72,31 @@ namespace TestBot
                  }
             return resKey;
         } 
-        static async void Bot_OnMessage(object sender,MessageEventArgs e){ 
-            if(e.Message.Text!=null)
-        {
-                 var withoutSpacesMsg = e.Message.Text.ToLower().Replace(" ","");
-                 var key = findKey(withoutSpacesMsg);
+    
+        
+        static  bool isWaits(long chatKey,string hotKey){
+                bool result = true; 
+            if(keyWaitDict.ContainsKey(chatKey)){
+                if(keyWaitDict[chatKey].ContainsKey(hotKey)){
+                    result = Math.Abs((keyWaitDict[chatKey][hotKey].Subtract(DateTime.Now)).Minutes)<2;
+                   // Console.WriteLine($"res:{result} {Math.Abs((keyWaitDict[chatKey][hotKey].Subtract(DateTime.Now)).Minutes)}");
+                }
+                else{
+                    keyWaitDict[chatKey].Add(hotKey,DateTime.Now);
+                    result=false;
+                  //  Console.WriteLine($"resф:{result} {Math.Abs((keyWaitDict[chatKey][hotKey].Subtract(DateTime.Now)).Minutes)}");
+                }
+            }
+            else{
+                keyWaitDict.Add(chatKey,new Dictionary<string, DateTime>(){{hotKey,DateTime.Now}});
+                result = false;
+              //  Console.WriteLine($"res3:{result} {Math.Abs((keyWaitDict[chatKey][hotKey].Subtract(DateTime.Now)).Minutes)}");
+            }
+                
+           return result;
+        }
+
+        static async Task keySwitch(string key,MessageEventArgs e){
             switch(key)
             {
                     case "logs":
@@ -220,6 +241,19 @@ namespace TestBot
                     break;
                 
             }
+        }
+        static async void Bot_OnMessage(object sender,MessageEventArgs e){ 
+            if(e.Message.Text!=null)
+        {
+
+                 var withoutSpacesMsg = e.Message.Text.ToLower().Replace(" ","");
+                 var key = findKey(withoutSpacesMsg);
+                 if(key!=string.Empty)
+                    if(!isWaits(e.Message.Chat.Id,key)){
+                        keyWaitDict[e.Message.Chat.Id][key] = DateTime.Now;
+                        await keySwitch(key,e);
+                    }
+            
         }
             
         }
